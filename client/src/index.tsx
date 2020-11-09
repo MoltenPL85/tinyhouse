@@ -4,17 +4,16 @@ import ApolloClient from 'apollo-boost';
 import { ApolloProvider } from 'react-apollo';
 import reportWebVitals from './reportWebVitals';
 import { Listings } from './sections';
+import './styles/index.css';
 
 const client = new ApolloClient({
   uri: '/api',
 });
 
 render(
-  <React.StrictMode>
-    <ApolloProvider client={client}>
-      <Listings title='TinyHouse Listings' />
-    </ApolloProvider>
-  </React.StrictMode>,
+  <ApolloProvider client={client}>
+    <Listings title='TinyHouse Listings' />
+  </ApolloProvider>,
   document.getElementById('root')
 );
 
