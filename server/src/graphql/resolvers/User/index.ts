@@ -88,7 +88,7 @@ export const userResolvers: IResolvers = {
         };
 
         let cursor = await db.listings.find({
-          _id: { $in: user.bookings },
+          _id: { $in: user.listings },
         });
 
         cursor = cursor.skip(page > 0 ? (page - 1) * limit : 0);

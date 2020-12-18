@@ -122,7 +122,7 @@
 .listing-card__dimensions--guests {
   float: right;
 }
-.listing-card__dimensions--guests span {
+.listing-card__dimensions--guests span:last-child {
   padding-right: 0;
 }
 @media (max-width: 75em) {
