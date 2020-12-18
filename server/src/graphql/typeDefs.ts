@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-express';
 export const typeDefs = gql`
   type Booking {
     id: ID!
-    Listing: Listing!
+    listing: Listing!
     tenant: User!
     checkIn: String!
     checkOut: String!
