@@ -13,6 +13,7 @@ import {
   Listings,
   Login,
   NotFound,
+  Stripe,
   User,
 } from './sections';
 import { LOG_IN } from './lib/graphql/mutations';
@@ -98,8 +99,17 @@ const App = () => {
           />
           <Route
             exact
+            path='/stripe'
+            render={(props) => (
+              <Stripe {...props} viewer={viewer} setViewer={setViewer} />
+            )}
+          />
+          <Route
+            exact
             path='/user/:id'
-            render={(props) => <User {...props} viewer={viewer} />}
+            render={(props) => (
+              <User {...props} viewer={viewer} setViewer={setViewer} />
+            )}
           />
           <Route component={NotFound} />
         </Switch>
