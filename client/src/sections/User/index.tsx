@@ -68,7 +68,7 @@ export const User = ({
       </Content>
     );
   }
-  console.log(data);
+
   const user = data ? data.user : null;
   const viewerIsUser = viewer.id === match.params.id;
 
