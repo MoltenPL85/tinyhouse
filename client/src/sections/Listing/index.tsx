@@ -12,20 +12,31 @@ import { ErrorBanner, PageSkeleton } from '../../lib/components';
 import {
   ListingBookings,
   ListingCreateBooking,
+  ListingCreateBookingModal,
   ListingDetails,
 } from './components';
+import { Viewer } from '../../lib/types';
 
 interface MatchParams {
   id: string;
 }
 
+interface Props {
+  viewer: Viewer;
+}
+
 const { Content } = Layout;
 const PAGE_LIMIT = 3;
 
-export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
+export const Listing = ({
+  viewer,
+  match,
+}: Props & RouteComponentProps<MatchParams>) => {
   const [bookingsPage, setBookingsPage] = useState(1);
   const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
   const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
+  const [modalVisible, setModalVisible] = useState(false);
+
   const { loading, data, error } = useQuery<ListingData, ListingVariables>(
     LISTING,
     {
@@ -67,15 +78,31 @@ export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
     />
   );
 
-  const listingCreateBooking = listing && (
+  const listingCreateBookingElement = listing && (
     <ListingCreateBooking
+      viewer={viewer}
+      host={listing.host}
       price={listing.price}
+      bookingsIndex={listing.bookingsIndex}
       checkInDate={checkInDate}
       checkOutDate={checkOutDate}
       setCheckInDate={setCheckInDate}
       setCheckOutDate={setCheckOutDate}
+      setModalVisible={setModalVisible}
     />
   );
+
+  const listingCreateBookingModalElement = listing &&
+    checkInDate &&
+    checkOutDate && (
+      <ListingCreateBookingModal
+        price={listing.price}
+        modalVisible={modalVisible}
+        checkInDate={checkInDate}
+        checkOutDate={checkOutDate}
+        setModalVisible={setModalVisible}
+      />
+    );
 
   return (
     <Content className='listings'>
@@ -85,9 +112,10 @@ export const Listing = ({ match }: RouteComponentProps<MatchParams>) => {
           {listingBookingsElement}
         </Col>
         <Col xs={24} lg={10}>
-          {listingCreateBooking}
+          {listingCreateBookingElement}
         </Col>
       </Row>
+      {listingCreateBookingModalElement}
     </Content>
   );
 };
