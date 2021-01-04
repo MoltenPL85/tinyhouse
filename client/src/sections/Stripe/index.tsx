@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Redirect, RouteComponentProps } from 'react-router-dom';
+import { Redirect, RouteComponentProps, useHistory } from 'react-router-dom';
 import { Layout, Spin } from 'antd';
 import { useMutation } from 'react-apollo';
 import {
@@ -18,11 +18,7 @@ interface Props {
 
 const { Content } = Layout;
 
-export const Stripe = ({
-  viewer,
-  setViewer,
-  history,
-}: Props & RouteComponentProps) => {
+export const Stripe = ({ viewer, setViewer }: Props) => {
   const [connectStripe, { data, loading, error }] = useMutation<
     ConnectStripeData,
     ConnectStripeVariables
@@ -39,6 +35,7 @@ export const Stripe = ({
   });
   const connectStripeRef = useRef(connectStripe);
 
+  const history = useHistory();
   useScrollToTop();
 
   useEffect(() => {
