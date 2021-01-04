@@ -16,6 +16,7 @@ import {
   ListingDetails,
 } from './components';
 import { Viewer } from '../../lib/types';
+import { useScrollToTop } from '../../lib/hooks';
 
 interface MatchParams {
   id: string;
@@ -47,6 +48,8 @@ export const Listing = ({
       limit: PAGE_LIMIT,
     },
   });
+
+  useScrollToTop();
 
   const clearBookingData = () => {
     setModalVisible(false);

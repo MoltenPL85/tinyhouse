@@ -11,6 +11,7 @@ import { ListingsFilter } from '../../lib/graphql/globalTypes';
 import { ErrorBanner, ListingCard } from '../../lib/components';
 import { ListingsFilters } from './components/ListingsFilters';
 import { ListingsPagination, ListingsSkeleton } from './components';
+import { useScrollToTop } from '../../lib/hooks';
 
 interface MatchParams {
   location: string;
@@ -38,6 +39,8 @@ export const Listings = ({ match }: RouteComponentProps<MatchParams>) => {
       },
     }
   );
+
+  useScrollToTop();
 
   useEffect(() => {
     setPage(1);

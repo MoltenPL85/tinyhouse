@@ -10,6 +10,7 @@ import { ListingsFilter } from '../../lib/graphql/globalTypes';
 import { HomeHero, HomeListings, HomeListingsSkeleton } from './components';
 import { displayErrorMessage } from '../../lib/utils';
 import { LISTINGS } from '../../lib/graphql/queries';
+import { useScrollToTop } from '../../lib/hooks';
 
 import mapBackground from './assets/map-background.jpg';
 import sanFranciscoImage from './assets/san-francisco.jpg';
@@ -33,6 +34,8 @@ export const Home = ({ history }: RouteComponentProps) => {
       fetchPolicy: 'cache-and-network',
     }
   );
+
+  useScrollToTop();
 
   const onSearch = (value: string) => {
     const trimmedValue = value.trim();

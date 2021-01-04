@@ -31,6 +31,7 @@ import {
 } from '../../lib/graphql/mutations/HostListing/__generated__/HostListing';
 import { HOST_LISTING } from '../../lib/graphql/mutations';
 import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
+import { useScrollToTop } from '../../lib/hooks';
 
 interface Props {
   viewer: Viewer;
@@ -63,6 +64,8 @@ export const Host = ({ viewer }: Props) => {
       );
     },
   });
+
+  useScrollToTop();
 
   const handleImageUpload = (info: UploadChangeParam) => {
     const { file } = info;
