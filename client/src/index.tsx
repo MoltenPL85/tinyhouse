@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import ApolloClient from 'apollo-boost';
 import { ApolloProvider, useMutation } from 'react-apollo';
 import { Affix, Layout, Spin } from 'antd';
+import { Elements } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
 import reportWebVitals from './reportWebVitals';
 import {
   AppHeader,
@@ -36,6 +38,10 @@ const client = new ApolloClient({
     });
   },
 });
+
+const stripePromise = loadStripe(
+  process.env.REACT_APP_S_PUBLISHABLE_KEY as string
+);
 
 const initialViewer: Viewer = {
   id: null,
@@ -97,7 +103,11 @@ const App = () => {
           <Route
             exact
             path='/listing/:id'
-            render={(props) => <Listing {...props} viewer={viewer} />}
+            render={(props) => (
+              <Elements stripe={stripePromise}>
+                <Listing {...props} viewer={viewer} />
+              </Elements>
+            )}
           />
           <Route exact path='/listings/:location?' component={Listings} />
           <Route

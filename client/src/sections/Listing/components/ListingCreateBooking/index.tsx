@@ -36,7 +36,7 @@ export const ListingCreateBooking = ({
   const dateIsBooked = (currentDate: Moment) => {
     const year = moment(currentDate).year();
     const month = moment(currentDate).month();
-    const day = moment(currentDate).day();
+    const day = moment(currentDate).date();
 
     if (bookingsIndexJSON[year] && bookingsIndexJSON[year][month]) {
       return Boolean(bookingsIndexJSON[year][month][day]);
@@ -66,7 +66,7 @@ export const ListingCreateBooking = ({
 
         const year = moment(dateCursor).year();
         const month = moment(dateCursor).month();
-        const day = moment(dateCursor).day();
+        const day = moment(dateCursor).date();
 
         if (
           bookingsIndexJSON[year] &&
