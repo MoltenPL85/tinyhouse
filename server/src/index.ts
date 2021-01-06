@@ -1,6 +1,7 @@
-// import dotenv from 'dotenv';
-// dotenv.config();
+import dotenv from 'dotenv';
+dotenv.config();
 
+import 'reflect-metadata';
 import express, { Application } from 'express';
 import { ApolloServer } from 'apollo-server-express';
 import cookieParser from 'cookie-parser';

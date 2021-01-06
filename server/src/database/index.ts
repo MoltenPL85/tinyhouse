@@ -1,19 +1,23 @@
-import { MongoClient } from 'mongodb';
-import { Database, User, Listing, Booking } from '../lib/types';
-
-const url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_USER_PASSWORD}@${process.env.DB_CLUSTER}.mongodb.net/<dbname>?retryWrites=true&w=majority`;
+import { createConnection } from 'typeorm';
+import { Database } from '../lib/types';
+import { ListingEntity, UserEntity, BookingEntity } from './entity';
 
 export const connectDatabase = async (): Promise<Database> => {
-  const client = await MongoClient.connect(url, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
+  const connection = await createConnection({
+    type: 'postgres',
+    username: process.env.DB_USER_PG,
+    password: process.env.DB_USER_PASSWORD_PG,
+    database: 'tinyhouse',
+    synchronize: true,
+    logging: false,
+    entities: ['src/database/entity/**/*.ts'],
+    migrations: ['src/database/migration/**/*.ts'],
+    subscribers: ['src/database/subscriber/**/*.ts'],
   });
 
-  const db = client.db('main');
-
   return {
-    bookings: db.collection<Booking>('bookings'),
-    listings: db.collection<Listing>('listings'),
-    users: db.collection<User>('users'),
+    bookings: connection.getRepository(BookingEntity),
+    listings: connection.getRepository(ListingEntity),
+    users: connection.getRepository(UserEntity),
   };
 };
