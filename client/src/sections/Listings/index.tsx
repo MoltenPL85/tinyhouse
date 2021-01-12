@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Affix, Layout, List, Typography } from 'antd';
-import { useQuery } from 'react-apollo';
 import { Link, useParams } from 'react-router-dom';
+import { useQuery } from '@apollo/client';
 import {
   Listings as ListingsData,
   ListingsVariables,

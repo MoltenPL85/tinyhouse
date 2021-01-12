@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
-import { useApolloClient, useMutation } from '@apollo/react-hooks';
 import { Card, Layout, Spin, Typography } from 'antd';
+import { useApolloClient, useMutation } from '@apollo/client';
 import { LOG_IN } from '../../lib/graphql/mutations';
 import { AUTH_URL } from '../../lib/graphql/queries';
 import {

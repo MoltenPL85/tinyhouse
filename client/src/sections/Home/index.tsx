@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { useQuery } from 'react-apollo';
+import { useQuery } from '@apollo/client';
 import { Col, Row, Layout, Typography } from 'antd';
 import {
   Listings as ListingsData,

@@ -1,8 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import ApolloClient from 'apollo-boost';
-import { ApolloProvider, useMutation } from 'react-apollo';
+import {
+  ApolloClient,
+  createHttpLink,
+  InMemoryCache,
+} from '@apollo/client/core';
+import { setContext } from '@apollo/client/link/context';
 import { Affix, Layout, Spin } from 'antd';
 import { Elements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
@@ -26,17 +30,24 @@ import {
 import { AppHeaderSkeleton, ErrorBanner } from './lib/components';
 import { Viewer } from './lib/types';
 import './styles/index.css';
+import { ApolloProvider, useMutation } from '@apollo/client';
 
-const client = new ApolloClient({
+const httpLink = createHttpLink({
   uri: '/api',
-  request: async (operation) => {
-    const token = sessionStorage.getItem('token');
-    operation.setContext({
-      headers: {
-        'X-CSRF-TOKEN': token || '',
-      },
-    });
-  },
+});
+const authLink = setContext((_, { headers }) => {
+  const token = sessionStorage.getItem('token');
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      'X-CSRF-TOKEN': token || '',
+    },
+  };
+});
+const client = new ApolloClient({
+  link: authLink.concat(httpLink),
+  cache: new InMemoryCache(),
 });
 
 const stripePromise = loadStripe(

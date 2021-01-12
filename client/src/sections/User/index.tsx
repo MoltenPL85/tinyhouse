@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { useQuery } from '@apollo/react-hooks';
 import { useParams } from 'react-router-dom';
 import { Layout, Col, Row } from 'antd';
+import { useQuery } from '@apollo/client';
 import { USER } from '../../lib/graphql/queries';
 import {
   User as UserData,

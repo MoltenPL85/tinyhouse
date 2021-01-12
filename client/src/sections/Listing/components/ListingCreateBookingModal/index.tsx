@@ -3,7 +3,7 @@ import { Button, Divider, Typography, Modal } from 'antd';
 import moment, { Moment } from 'moment';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { KeyOutlined } from '@ant-design/icons';
-import { useMutation } from 'react-apollo';
+import { useMutation } from '@apollo/client';
 import {
   displayErrorMessage,
   displaySuccessNotification,

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { Layout, Spin } from 'antd';
-import { useMutation } from 'react-apollo';
+import { useMutation } from '@apollo/client';
 import {
   ConnectStripe as ConnectStripeData,
   ConnectStripeVariables,

@@ -1,6 +1,6 @@
 import React from 'react';
-import { useMutation } from 'react-apollo';
 import { Avatar, Button, Card, Divider, Tag, Typography } from 'antd';
+import { useMutation } from '@apollo/client';
 import { User as UserData } from '../../../../lib/graphql/queries/User/__generated__/User';
 import {
   displayErrorMessage,

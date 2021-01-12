@@ -17,7 +17,7 @@ import {
   LoadingOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
-import { useMutation } from 'react-apollo';
+import { useMutation } from '@apollo/client';
 import { Viewer } from '../../lib/types';
 import { HostListingInput, ListingType } from '../../lib/graphql/globalTypes';
 import {

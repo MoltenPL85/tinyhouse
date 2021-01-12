@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useQuery } from 'react-apollo';
+import { useQuery } from '@apollo/client';
 import { useParams } from 'react-router-dom';
 import { Col, Row, Layout } from 'antd';
 import { Moment } from 'moment';
