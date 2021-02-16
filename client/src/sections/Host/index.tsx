@@ -30,7 +30,7 @@ import {
   HostListingVariables,
 } from '../../lib/graphql/mutations/HostListing/__generated__/HostListing';
 import { HOST_LISTING } from '../../lib/graphql/mutations';
-import { RcCustomRequestOptions } from 'antd/lib/upload/interface';
+import { UploadRequestOption as RcCustomRequestOptions } from 'rc-upload/lib/interface';
 import { useScrollToTop } from '../../lib/hooks';
 
 interface Props {
@@ -85,6 +85,7 @@ export const Host = ({ viewer }: Props) => {
 
   const dummyRequest = ({ file, onSuccess }: RcCustomRequestOptions) => {
     setTimeout(() => {
+      // @ts-ignore
       onSuccess({}, file);
     }, 0);
   };
@@ -111,16 +112,16 @@ export const Host = ({ viewer }: Props) => {
 
   if (!viewer.id || !viewer.hasWallet) {
     return (
-      <Content className='host-content'>
-        <div className='host__form-header'>
-          <Title level={4} className='host__form-title'>
+      <Content className="host-content">
+        <div className="host__form-header">
+          <Title level={4} className="host__form-title">
             You'll have to be signed in and connected with Stripe to host a
             listing!
           </Title>
-          <Text type='secondary'>
+          <Text type="secondary">
             We only allow users who've signed in to our application and have
             connected with Stripe to host new listings. You can sign in at the{' '}
-            <Link to='/login'>/login</Link> page and connect with Stripe shortly
+            <Link to="/login">/login</Link> page and connect with Stripe shortly
             after.
           </Text>
         </div>
@@ -130,12 +131,12 @@ export const Host = ({ viewer }: Props) => {
 
   if (loading) {
     return (
-      <Content className='host-content'>
-        <div className='host__form-header'>
-          <Title level={3} className='host__form-title'>
+      <Content className="host-content">
+        <div className="host__form-header">
+          <Title level={3} className="host__form-title">
             Please wait!
           </Title>
-          <Text type='secondary'>We're creating your listing now.</Text>
+          <Text type="secondary">We're creating your listing now.</Text>
         </div>
       </Content>
     );
@@ -146,27 +147,27 @@ export const Host = ({ viewer }: Props) => {
   }
 
   return (
-    <Content className='host-content'>
+    <Content className="host-content">
       <Form
-        layout='vertical'
+        layout="vertical"
         onFinish={handleHostListing}
         onFinishFailed={() => {
           displayErrorMessage('Please complete all required form fields!');
         }}
       >
-        <div className='host__form-header'>
-          <Title level={3} className='host__form-title'>
+        <div className="host__form-header">
+          <Title level={3} className="host__form-title">
             Hi! Let's get started listing your place.
           </Title>
-          <Text type='secondary'>
+          <Text type="secondary">
             In this form, we'll collect some basic and additional about your
             listing.
           </Text>
         </div>
 
         <Item
-          label='Home Type'
-          name='type'
+          label="Home Type"
+          name="type"
           rules={[{ required: true, message: 'Please select a home type!' }]}
         >
           <Radio.Group>
@@ -182,19 +183,19 @@ export const Host = ({ viewer }: Props) => {
         </Item>
 
         <Item
-          label='Max # of Guests'
-          name='numOfGuests'
+          label="Max # of Guests"
+          name="numOfGuests"
           rules={[
             { required: true, message: 'Please enter a max number of guests!' },
           ]}
         >
-          <InputNumber min={1} placeholder='4' />
+          <InputNumber min={1} placeholder="4" />
         </Item>
 
         <Item
-          label='Title'
-          extra='Max character count of 45'
-          name='title'
+          label="Title"
+          extra="Max character count of 45"
+          name="title"
           rules={[
             {
               required: true,
@@ -204,14 +205,14 @@ export const Host = ({ viewer }: Props) => {
         >
           <Input
             maxLength={45}
-            placeholder='The iconic and luxurious Bel-Air mansion'
+            placeholder="The iconic and luxurious Bel-Air mansion"
           />
         </Item>
 
         <Item
-          label='Description of listing'
-          extra='Max character count of 400'
-          name='description'
+          label="Description of listing"
+          extra="Max character count of 400"
+          name="description"
           rules={[
             {
               required: true,
@@ -222,13 +223,13 @@ export const Host = ({ viewer }: Props) => {
           <Input.TextArea
             rows={3}
             maxLength={400}
-            placeholder='Modern, clean and iconic home of the Fresh Prince. Situated in the heart of Bel-Air, Los Angeles.'
+            placeholder="Modern, clean and iconic home of the Fresh Prince. Situated in the heart of Bel-Air, Los Angeles."
           />
         </Item>
 
         <Item
-          label='Address'
-          name='address'
+          label="Address"
+          name="address"
           rules={[
             {
               required: true,
@@ -236,12 +237,12 @@ export const Host = ({ viewer }: Props) => {
             },
           ]}
         >
-          <Input placeholder='251 North Briston Avenue' />
+          <Input placeholder="251 North Briston Avenue" />
         </Item>
 
         <Item
-          label='City/Town'
-          name='city'
+          label="City/Town"
+          name="city"
           rules={[
             {
               required: true,
@@ -249,12 +250,12 @@ export const Host = ({ viewer }: Props) => {
             },
           ]}
         >
-          <Input placeholder='Los Angeles' />
+          <Input placeholder="Los Angeles" />
         </Item>
 
         <Item
-          label='State/Province'
-          name='state'
+          label="State/Province"
+          name="state"
           rules={[
             {
               required: true,
@@ -262,12 +263,12 @@ export const Host = ({ viewer }: Props) => {
             },
           ]}
         >
-          <Input placeholder='California' />
+          <Input placeholder="California" />
         </Item>
 
         <Item
-          label='Zip/Postal Code'
-          name='postalCode'
+          label="Zip/Postal Code"
+          name="postalCode"
           rules={[
             {
               required: true,
@@ -275,13 +276,13 @@ export const Host = ({ viewer }: Props) => {
             },
           ]}
         >
-          <Input placeholder='Please enter a zip code for your listing!' />
+          <Input placeholder="Please enter a zip code for your listing!" />
         </Item>
 
         <Item
-          label='Image'
-          extra='Images have to be under 1MB in size and of type JPG or PNG'
-          name='image'
+          label="Image"
+          extra="Images have to be under 1MB in size and of type JPG or PNG"
+          name="image"
           rules={[
             {
               required: true,
@@ -289,21 +290,21 @@ export const Host = ({ viewer }: Props) => {
             },
           ]}
         >
-          <div className='host__form-image-upload'>
+          <div className="host__form-image-upload">
             <Upload
-              name='image'
-              listType='picture-card'
+              name="image"
+              listType="picture-card"
               showUploadList={false}
               beforeUpload={beforeImageUpload}
               onChange={handleImageUpload}
               customRequest={dummyRequest}
             >
               {imageBase64Value ? (
-                <img src={imageBase64Value} alt='Listing' />
+                <img src={imageBase64Value} alt="Listing" />
               ) : (
                 <div>
                   {imageLoading ? <LoadingOutlined /> : <PlusOutlined />}
-                  <div className='ant-upload-text'>Upload</div>
+                  <div className="ant-upload-text">Upload</div>
                 </div>
               )}
             </Upload>
@@ -311,9 +312,9 @@ export const Host = ({ viewer }: Props) => {
         </Item>
 
         <Item
-          label='Price'
-          extra='All prices in $USD/day'
-          name='price'
+          label="Price"
+          extra="All prices in $USD/day"
+          name="price"
           rules={[
             {
               required: true,
@@ -321,11 +322,11 @@ export const Host = ({ viewer }: Props) => {
             },
           ]}
         >
-          <InputNumber min={0} placeholder='120' />
+          <InputNumber min={0} placeholder="120" />
         </Item>
 
         <Item>
-          <Button type='primary' htmlType='submit'>
+          <Button type="primary" htmlType="submit">
             Submit
           </Button>
         </Item>

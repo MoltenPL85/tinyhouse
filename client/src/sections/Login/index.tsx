@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useLocation } from 'react-router-dom';
 import { Card, Layout, Spin, Typography } from 'antd';
 import { useApolloClient, useMutation } from '@apollo/client';
 import { LOG_IN } from '../../lib/graphql/mutations';
@@ -39,14 +39,17 @@ export const Login = ({ setViewer }: Props) => {
         displaySuccessNotification("You've successfully logged in!");
       }
     },
+    onError: () => {}, //necessary to test error state of component
   });
 
   const logInRef = useRef(logIn);
+  const location = useLocation();
 
   useScrollToTop();
 
   useEffect(() => {
-    const code = new URL(window.location.href).searchParams.get('code');
+    const searchParams = new URLSearchParams(location.search);
+    const code = searchParams.get('code');
 
     if (code) {
       logInRef.current({
@@ -62,7 +65,12 @@ export const Login = ({ setViewer }: Props) => {
       const { data } = await client.query<AuthUrlData>({
         query: AUTH_URL,
       });
-      window.location.href = data.authUrl;
+
+      if (!data) {
+        throw new Error('Unable to authenticate');
+      }
+
+      window.location.assign(data.authUrl);
     } catch {
       displayErrorMessage(
         "Sorry! We weren't able to log you in. Please try again later!"
@@ -72,8 +80,8 @@ export const Login = ({ setViewer }: Props) => {
 
   if (logInLoading) {
     return (
-      <Content className='log-in'>
-        <Spin size='large' tip='Logging you in...' />
+      <Content className="log-in">
+        <Spin size="large" tip="Logging you in..." />
       </Content>
     );
   }
@@ -88,34 +96,34 @@ export const Login = ({ setViewer }: Props) => {
   );
 
   return (
-    <Content className='log-in'>
+    <Content className="log-in">
       {logInErrorBannerElement}
-      <Card className='log-in-card'>
-        <div className='log-in-card__intro'>
-          <Title level={3} className='log-in-card__intro-title'>
-            <span role='img' aria-label='wave'>
+      <Card className="log-in-card">
+        <div className="log-in-card__intro">
+          <Title level={3} className="log-in-card__intro-title">
+            <span role="img" aria-label="wave">
               👋
             </span>
           </Title>
-          <Title level={3} className='log-in-card__intro-title'>
+          <Title level={3} className="log-in-card__intro-title">
             Log in to TinyHouse!
           </Title>
           <Text>Sign in with Google to start booking available rentals!</Text>
         </div>
         <button
-          className='log-in-card__google-button'
+          className="log-in-card__google-button"
           onClick={handleAuthorize}
         >
           <img
             src={googleLogo}
-            alt='Google Logo'
-            className='log-in-card__google-button-logo'
+            alt="Google Logo"
+            className="log-in-card__google-button-logo"
           />
-          <span className='log-in-card__google-button-text'>
+          <span className="log-in-card__google-button-text">
             Sign in with Google
           </span>
         </button>
-        <Text type='secondary'>
+        <Text type="secondary">
           Note: By signing in, you'll be redirected to the Google consent form
           to sign in with Google account.
         </Text>
